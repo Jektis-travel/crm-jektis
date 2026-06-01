@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jektis Travel — CRM CEO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#f8f7f4;
+    --surface:#ffffff;
+    --surface2:#f1f0ed;
+    --border:#e5e4e0;
+    --text:#1a1917;
+    --text2:#6b6a66;
+    --text3:#9b9a96;
+    --accent:#1a1a2e;
+    --gold:#c9a84c;
+    --blue:#2563eb;
+    --green:#059669;
+    --amber:#d97706;
+    --purple:#7c3aed;
+    --red:#dc2626;
+  }
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  
+  /* HEADER */
+  .header{
+    background:var(--accent);
+    padding:0 28px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;top:0;z-index:200;
+  }
+  .header-left{display:flex;align-items:center;gap:14px}
+  .logo-box{
+    width:38px;height:38px;
+    background:var(--gold);
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;color:var(--accent);letter-spacing:0.5px;
+  }
+  .header-title{color:#fff;font-size:16px;font-weight:500}
+  .header-sub{color:rgba(255,255,255,0.5);font-size:12px}
+  .badge-ceo{
+    background:var(--gold);color:var(--accent);
+    font-size:11px;font-weight:600;
+    padding:4px 12px;border-radius:20px;letter-spacing:0.5px;
+  }
+  .header-right{display:flex;align-items:center;gap:12px}
+  .last-update{color:rgba(255,255,255,0.4);font-size:11px}
+
+  /* STATS */
+  .stats-bar{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:12px;
+    padding:20px 28px;
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+  }
+  .stat-card{
+    background:var(--surface2);
+    border-radius:10px;
+    padding:14px 16px;
+    position:relative;
+    overflow:hidden;
+  }
+  .stat-card::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;
+    height:3px;
+    border-radius:10px 10px 0 0;
+  }
+  .stat-card.c-blue::before{background:var(--blue)}
+  .stat-card.c-green::before{background:var(--green)}
+  .stat-card.c-amber::before{background:var(--amber)}
+  .stat-card.c-purple::before{background:var(--purple)}
+  .stat-card.c-red::before{background:var(--red)}
+  .stat-card.c-accent::before{background:var(--accent)}
+  .stat-num{font-size:26px;font-weight:600;line-height:1}
+  .stat-label{font-size:11px;color:var(--text2);margin-top:4px}
+  .stat-card.c-blue .stat-num{color:var(--blue)}
+  .stat-card.c-green .stat-num{color:var(--green)}
+  .stat-card.c-amber .stat-num{color:var(--amber)}
+  .stat-card.c-purple .stat-num{color:var(--purple)}
+  .stat-card.c-red .stat-num{color:var(--red)}
+  .stat-card.c-accent .stat-num{color:var(--accent)}
+
+  /* TOOLBAR */
+  .toolbar{
+    padding:14px 28px;
+    display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+  }
+  .search-wrap{flex:1;min-width:220px;position:relative}
+  .search-wrap .ti{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px}
+  .search-input{
+    width:100%;padding:9px 12px 9px 34px;
+    border:1px solid var(--border);border-radius:8px;
+    background:var(--surface2);color:var(--text);
+    font-size:13px;font-family:'DM Sans',sans-serif;
+    transition:border-color 0.15s;
+  }
+  .search-input:focus{outline:none;border-color:#94a3b8;background:var(--surface)}
+  select{
+    padding:9px 12px;border:1px solid var(--border);border-radius:8px;
+    background:var(--surface2);color:var(--text);
+    font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;
+    transition:border-color 0.15s;
+  }
+  select:focus{outline:none;border-color:#94a3b8}
+  .btn{
+    padding:9px 14px;border:1px solid var(--border);border-radius:8px;
+    background:var(--surface2);color:var(--text);
+    font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;
+    display:flex;align-items:center;gap:6px;transition:all 0.15s;
+  }
+  .btn:hover{background:var(--border)}
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn-primary:hover{background:#2d2d4e}
+
+  /* TABLE */
+  .table-container{padding:20px 28px}
+  .table-wrap{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  thead{background:var(--surface2)}
+  th{
+    padding:10px 14px;text-align:left;
+    font-size:10px;font-weight:600;
+    color:var(--text2);text-transform:uppercase;letter-spacing:0.8px;
+    border-bottom:1px solid var(--border);
+    white-space:nowrap;
+  }
+  td{
+    padding:12px 14px;font-size:13px;
+    border-bottom:1px solid var(--border);
+    vertical-align:middle;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  tr:last-child td{border-bottom:none}
+  tbody tr{cursor:pointer;transition:background 0.1s}
+  tbody tr:hover td{background:#faf9f7}
+
+  /* Column widths */
+  .col-id{width:55px}
+  .col-date{width:120px}
+  .col-nom{width:140px}
+  .col-tel{width:120px}
+  .col-dest{width:130px}
+  .col-nb{width:55px;text-align:center}
+  .col-visa{width:70px;text-align:center}
+  .col-type{width:100px}
+  .col-agent{width:100px}
+  .col-statut{width:100px}
+  .col-orig{width:100px}
+
+  /* BADGES */
+  .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+  .b-nouveau{background:#dbeafe;color:#1e40af}
+  .b-contacte{background:#fef3c7;color:#92400e}
+  .b-reserve{background:#d1fae5;color:#065f46}
+  .b-perdu{background:#fee2e2;color:#991b1b}
+  .b-whatsapp{background:#dcfce7;color:#166534}
+  .b-messenger{background:#ede9fe;color:#5b21b6}
+  .b-visa-oui{background:#d1fae5;color:#065f46}
+  .b-visa-non{color:var(--text3);font-size:12px}
+  .dest-pill{
+    display:inline-block;padding:3px 8px;border-radius:5px;
+    font-size:11px;background:var(--surface2);
+    border:1px solid var(--border);color:var(--text2);
+  }
+  .agent-chip{
+    display:inline-block;padding:3px 9px;border-radius:20px;
+    font-size:11px;font-weight:500;
+    background:var(--accent);color:rgba(255,255,255,0.9);
+  }
+  .nb-circle{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:24px;height:24px;border-radius:50%;
+    background:var(--surface2);border:1px solid var(--border);
+    font-size:12px;font-weight:500;
+  }
+
+  /* PAGINATION */
+  .pagination{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 28px;
+    background:var(--surface);
+    border-top:1px solid var(--border);
+  }
+  .page-info{font-size:13px;color:var(--text2)}
+  .page-btns{display:flex;gap:6px}
+  .page-btn{
+    padding:7px 14px;border:1px solid var(--border);border-radius:7px;
+    background:var(--surface2);color:var(--text);
+    font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;
+    display:flex;align-items:center;gap:4px;
+    transition:all 0.15s;
+  }
+  .page-btn:hover:not(:disabled){background:var(--border)}
+  .page-btn:disabled{opacity:0.35;cursor:default}
+
+  /* LOADING / EMPTY */
+  .state-row td{text-align:center;padding:60px;color:var(--text2)}
+  .state-icon{font-size:36px;display:block;margin:0 auto 12px;opacity:0.4}
+
+  /* MODAL */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;
+    background:rgba(0,0,0,0.5);z-index:500;
+    align-items:center;justify-content:center;
+  }
+  .modal-overlay.open{display:flex}
+  .modal{
+    background:var(--surface);border-radius:14px;
+    width:90%;max-width:560px;max-height:85vh;overflow-y:auto;
+    box-shadow:0 20px 60px rgba(0,0,0,0.15);
+  }
+  .modal-header{
+    padding:20px 24px;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;
+    position:sticky;top:0;background:var(--surface);z-index:10;
+  }
+  .modal-title{font-size:16px;font-weight:600}
+  .modal-close{
+    width:32px;height:32px;border:none;background:var(--surface2);
+    border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    font-size:18px;color:var(--text2);
+  }
+  .modal-close:hover{background:var(--border)}
+  .modal-body{padding:24px}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .detail-field label{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px}
+  .detail-field .val{font-size:14px;font-weight:500}
+  .detail-field .val.empty{color:var(--text3);font-weight:400;font-style:italic}
+  .notes-section{margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+  .notes-label{font-size:12px;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .notes-input{
+    width:100%;padding:10px 12px;border:1px solid var(--border);
+    border-radius:8px;background:var(--surface2);color:var(--text);
+    font-size:13px;font-family:'DM Sans',sans-serif;
+    resize:vertical;min-height:80px;
+  }
+  .notes-input:focus{outline:none;border-color:#94a3b8}
+  .statut-select{
+    width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;
+    background:var(--surface2);color:var(--text);
+    font-size:13px;font-family:'DM Sans',sans-serif;margin-top:4px;
+  }
+  .modal-footer{
+    padding:16px 24px;border-top:1px solid var(--border);
+    display:flex;gap:10px;justify-content:flex-end;
+    background:var(--surface);
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:768px){
+    .stats-bar{grid-template-columns:repeat(3,1fr)}
+    .table-container{padding:12px}
+    .header{padding:0 16px}
+    .toolbar{padding:12px 16px}
+    .pagination{padding:12px 16px;flex-direction:column;gap:10px}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo-box">JT</div>
+    <div>
+      <div class="header-title">Jektis Travel CRM</div>
+      <div class="header-sub">Tableau de bord — Vue CEO</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="last-update" id="last-update"></span>
+    <span class="badge-ceo"><i class="ti ti-crown" style="font-size:12px"></i> CEO</span>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-card c-blue"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total prospects</div></div>
+  <div class="stat-card c-green"><div class="stat-num" id="s-nouveau">—</div><div class="stat-label">Nouveaux</div></div>
+  <div class="stat-card c-amber"><div class="stat-num" id="s-contacte">—</div><div class="stat-label">Contactés</div></div>
+  <div class="stat-card c-purple"><div class="stat-num" id="s-reserve">—</div><div class="stat-label">Réservés</div></div>
+  <div class="stat-card c-red"><div class="stat-num" id="s-perdu">—</div><div class="stat-label">Perdus</div></div>
+  <div class="stat-card c-accent"><div class="stat-num" id="s-whatsapp">—</div><div class="stat-label">Via WhatsApp</div></div>
+</div>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <i class="ti ti-search"></i>
+    <input class="search-input" type="text" id="search" placeholder="Rechercher nom, téléphone, destination...">
+  </div>
+  <select id="f-dest">
+    <option value="">Toutes destinations</option>
+    <option>Italie</option><option>Grèce</option><option>Portugal</option>
+    <option>Espagne</option><option>Bali</option><option>Japon</option>
+    <option>Chine</option><option>Brésil</option><option>Europe Centrale</option>
+    <option>USA & Mexique</option><option>Lisbonne & Porto</option>
+    <option>Portugal & Espagne</option>
+  </select>
+  <select id="f-agent">
+    <option value="">Tous les agents</option>
+    <option>Rahma</option><option>Maryem</option><option>Oumaima</option>
+    <option>Habiba</option><option>Souhir</option><option>Ibtihel</option>
+    <option>Ilef</option><option>Ikbel</option><option>Siwar</option>
+  </select>
+  <select id="f-statut">
+    <option value="">Tous statuts</option>
+    <option value="nouveau">Nouveau</option>
+    <option value="contacte">Contacté</option>
+    <option value="reserve">Réservé</option>
+    <option value="perdu">Perdu</option>
+  </select>
+  <select id="f-origine">
+    <option value="">Toutes origines</option>
+    <option>WhatsApp</option><option>Messenger</option>
+  </select>
+  <button class="btn btn-primary" onclick="loadData()">
+    <i class="ti ti-refresh"></i> Actualiser
+  </button>
+</div>
+
+<div class="table-container">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-id">#</th>
+          <th class="col-date">Date</th>
+          <th class="col-nom">Nom / Prénom</th>
+          <th class="col-tel">Téléphone</th>
+          <th class="col-dest">Destination</th>
+          <th class="col-nb">Pers.</th>
+          <th class="col-visa">Visa</th>
+          <th class="col-type">Type visa</th>
+          <th class="col-agent">Agent</th>
+          <th class="col-statut">Statut</th>
+          <th class="col-orig">Origine</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr class="state-row"><td colspan="11"><i class="ti ti-loader state-icon"></i>Chargement des prospects...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="pagination">
+  <div class="page-info" id="page-info"></div>
+  <div class="page-btns">
+    <button class="page-btn" id="btn-prev" onclick="changePage(-1)"><i class="ti ti-chevron-left"></i> Précédent</button>
+    <button class="page-btn" id="btn-next" onclick="changePage(1)">Suivant <i class="ti ti-chevron-right"></i></button>
+  </div>
+</div>
+
+<!-- MODAL DETAIL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Détail prospect</div>
+      <button class="modal-close" onclick="closeModalDirect()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-grid" id="detail-grid"></div>
+      <div class="notes-section">
+        <div class="notes-label"><i class="ti ti-notes" style="font-size:14px"></i> Changer le statut</div>
+        <select class="statut-select" id="modal-statut">
+          <option value="nouveau">Nouveau</option>
+          <option value="contacte">Contacté</option>
+          <option value="reserve">Réservé</option>
+          <option value="perdu">Perdu</option>
+        </select>
+        <div class="notes-label" style="margin-top:16px"><i class="ti ti-message" style="font-size:14px"></i> Note CEO</div>
+        <textarea class="notes-input" id="modal-note" placeholder="Ajouter une note sur ce prospect..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModalDirect()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveRecord()"><i class="ti ti-device-floppy"></i> Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://qszljfkmfkfwdkrklixb.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzemxqZmttZmtmd2RrcmtsaXhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2Mzk5NTQsImV4cCI6MjA5NDIxNTk1NH0.sTMMBf_bix6IlcOd2KorDnmuoNOnPU0csvgVfhq4jfY';
+const TABLE = 'conversationmemory';
+const PER_PAGE = 25;
+
+let allData = [];
+let filtered = [];
+let page = 1;
+let currentRecord = null;
+
+async function loadData() {
+  document.getElementById('tbody').innerHTML = '<tr class="state-row"><td colspan="11"><i class="ti ti-loader state-icon"></i>Chargement...</td></tr>';
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/${TABLE}?select=*&order=date_creation.desc&limit=1000`,
+      {headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}}
+    );
+    if (!res.ok) throw new Error('API error');
+    allData = await res.json();
+    document.getElementById('last-update').textContent = 'Actualisé ' + new Date().toLocaleTimeString('fr-FR');
+    updateStats();
+    applyFilters();
+  } catch(e) {
+    document.getElementById('tbody').innerHTML = '<tr class="state-row"><td colspan="11"><i class="ti ti-wifi-off state-icon"></i>Erreur de connexion. Vérifiez votre connexion internet.</td></tr>';
+  }
+}
+
+function updateStats() {
+  document.getElementById('s-total').textContent = allData.length;
+  document.getElementById('s-nouveau').textContent = allData.filter(r=>(r.statut||'').toLowerCase().includes('nouveau')).length;
+  document.getElementById('s-contacte').textContent = allData.filter(r=>(r.statut||'').toLowerCase().includes('contact')).length;
+  document.getElementById('s-reserve').textContent = allData.filter(r=>(r.statut||'').toLowerCase().includes('reserv')).length;
+  document.getElementById('s-perdu').textContent = allData.filter(r=>(r.statut||'').toLowerCase().includes('perdu')).length;
+  document.getElementById('s-whatsapp').textContent = allData.filter(r=>(r.message_origine||'').toLowerCase().includes('whatsapp')).length;
+}
+
+function applyFilters() {
+  const s = document.getElementById('search').value.toLowerCase();
+  const fd = document.getElementById('f-dest').value.toLowerCase();
+  const fa = document.getElementById('f-agent').value.toLowerCase();
+  const fs = document.getElementById('f-statut').value.toLowerCase();
+  const fo = document.getElementById('f-origine').value.toLowerCase();
+  filtered = allData.filter(r => {
+    const txt = [r.nom_prenom,r.telephone,r.destination,r.whatsapp_name].join(' ').toLowerCase();
+    return (!s||txt.includes(s))
+      &&(!fd||(r.destination||'').toLowerCase().includes(fd))
+      &&(!fa||(r.agent_responsable||'').toLowerCase().includes(fa))
+      &&(!fs||(r.statut||'').toLowerCase().includes(fs))
+      &&(!fo||(r.message_origine||'').toLowerCase().includes(fo));
+  });
+  page = 1;
+  render();
+}
+
+function render() {
+  const start = (page-1)*PER_PAGE;
+  const slice = filtered.slice(start, start+PER_PAGE);
+  if (!slice.length) {
+    document.getElementById('tbody').innerHTML = '<tr class="state-row"><td colspan="11"><i class="ti ti-inbox state-icon"></i>Aucun prospect trouvé</td></tr>';
+    document.getElementById('page-info').textContent = '';
+    document.getElementById('btn-prev').disabled = true;
+    document.getElementById('btn-next').disabled = true;
+    return;
+  }
+  let html = '';
+  slice.forEach(r => {
+    const date = r.date_creation
+      ? new Date(r.date_creation).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'}) + ' ' + new Date(r.date_creation).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})
+      : '—';
+    const statut = (r.statut||'nouveau').toLowerCase();
+    let sc='b-nouveau';
+    if(statut.includes('contact'))sc='b-contacte';
+    else if(statut.includes('reserv'))sc='b-reserve';
+    else if(statut.includes('perdu'))sc='b-perdu';
+    const orig=(r.message_origine||'').toLowerCase();
+    const oc=orig.includes('messenger')?'b-messenger':'b-whatsapp';
+    const visa=(r.besoin_visa||'').toLowerCase();
+    const visaHtml = visa==='oui'
+      ? '<span class="badge b-visa-oui"><i class="ti ti-check" style="font-size:11px"></i> Oui</span>'
+      : '<span class="b-visa-non">—</span>';
+    const nom = r.nom_prenom||r.whatsapp_name||'—';
+    html += `<tr onclick="openModal(${r.id})">
+      <td style="color:var(--text3);font-size:11px;font-family:'DM Mono',monospace">${r.id||'—'}</td>
+      <td style="font-size:11px;color:var(--text2)">${date}</td>
+      <td style="font-weight:500" title="${nom}">${nom}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:12px">${r.telephone||'—'}</td>
+      <td><span class="dest-pill">${r.destination||'—'}</span></td>
+      <td style="text-align:center"><span class="nb-circle">${r.nb_personnes||1}</span></td>
+      <td style="text-align:center">${visaHtml}</td>
+      <td style="font-size:12px;color:var(--text2)">${r.type_visa||'—'}</td>
+      <td>${r.agent_responsable?`<span class="agent-chip">${r.agent_responsable}</span>`:'<span style="color:var(--text3);font-size:12px">—</span>'}</td>
+      <td><span class="badge ${sc}">${r.statut||'Nouveau'}</span></td>
+      <td><span class="badge ${oc}">${r.message_origine||'—'}</span></td>
+    </tr>`;
+  });
+  document.getElementById('tbody').innerHTML = html;
+  const total = filtered.length;
+  const totalPages = Math.ceil(total/PER_PAGE);
+  document.getElementById('page-info').textContent = `${start+1}–${Math.min(start+PER_PAGE,total)} sur ${total} prospects`;
+  document.getElementById('btn-prev').disabled = page<=1;
+  document.getElementById('btn-next').disabled = page>=totalPages;
+}
+
+function changePage(dir) {
+  const totalPages = Math.ceil(filtered.length/PER_PAGE);
+  page = Math.max(1,Math.min(totalPages,page+dir));
+  render();
+}
+
+function openModal(id) {
+  currentRecord = allData.find(r=>r.id===id);
+  if (!currentRecord) return;
+  document.getElementById('modal-title').textContent = currentRecord.nom_prenom||currentRecord.whatsapp_name||'Prospect #'+id;
+  const fields = [
+    {label:'Nom / Prénom',val:currentRecord.nom_prenom},
+    {label:'Téléphone',val:currentRecord.telephone},
+    {label:'WhatsApp Name',val:currentRecord.whatsapp_name},
+    {label:'Destination',val:currentRecord.destination},
+    {label:'Nb personnes',val:currentRecord.nb_personnes},
+    {label:'Besoin visa',val:currentRecord.besoin_visa},
+    {label:'Type visa',val:currentRecord.type_visa},
+    {label:'Agent responsable',val:currentRecord.agent_responsable},
+    {label:'Origine',val:currentRecord.message_origine},
+    {label:'Date création',val:currentRecord.date_creation?new Date(currentRecord.date_creation).toLocaleString('fr-FR'):'—'},
+  ];
+  document.getElementById('detail-grid').innerHTML = fields.map(f=>`
+    <div class="detail-field">
+      <label>${f.label}</label>
+      <div class="val ${!f.val?'empty':''}">${f.val||'Non renseigné'}</div>
+    </div>
+  `).join('');
+  const statut = (currentRecord.statut||'nouveau').toLowerCase();
+  document.getElementById('modal-statut').value = statut.includes('contact')?'contacte':statut.includes('reserv')?'reserve':statut.includes('perdu')?'perdu':'nouveau';
+  document.getElementById('modal-note').value = currentRecord.note_ceo||'';
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if(e.target===document.getElementById('modal')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modal').classList.remove('open');
+  currentRecord = null;
+}
+
+async function saveRecord() {
+  if (!currentRecord) return;
+  const newStatut = document.getElementById('modal-statut').value;
+  const note = document.getElementById('modal-note').value;
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${currentRecord.id}`,
+      {
+        method:'PATCH',
+        headers:{
+          'apikey':SUPABASE_KEY,
+          'Authorization':`Bearer ${SUPABASE_KEY}`,
+          'Content-Type':'application/json',
+          'Prefer':'return=minimal'
+        },
+        body:JSON.stringify({statut:newStatut, note_ceo:note})
+      }
+    );
+    if(res.ok) {
+      const idx = allData.findIndex(r=>r.id===currentRecord.id);
+      if(idx>-1){allData[idx].statut=newStatut;allData[idx].note_ceo=note}
+      updateStats();
+      applyFilters();
+      closeModalDirect();
+      showToast('Prospect mis à jour avec succès !');
+    }
+  } catch(e) {
+    showToast('Erreur lors de la sauvegarde','error');
+  }
+}
+
+function showToast(msg, type='success') {
+  const t = document.createElement('div');
+  t.style.cssText = `position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;z-index:9999;background:${type==='success'?'#059669':'#dc2626'};color:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.2)`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+
+['search','f-dest','f-agent','f-statut','f-origine'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',applyFilters);
+  document.getElementById(id).addEventListener('change',applyFilters);
+});
+
+loadData();
+setInterval(loadData, 30000);
+</script>
+</body>
+</html>
