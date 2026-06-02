@@ -1291,6 +1291,10 @@ const sr=sessionStorage.getItem('crm_role');
 if(su&&sr){currentUser=su;currentRole=sr;initApp()}
 
 setInterval(()=>{if(currentUser)loadData()},30000);
+</script> <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
 </script>
 </body>
 </html>
