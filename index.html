@@ -1123,7 +1123,7 @@ async function saveNewProspect(){
     agent_responsable:agentAuto,
     message_origine:document.getElementById('add-origine').value,
     statut:'nouveau',notes,
-    date_creation:new Date().toISOString(),
+    date_creation:new Date().toISOString().replace('T',' ').replace('Z',''),
     whatsapp_name:currentUser
   };
   try{
